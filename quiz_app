@@ -1,0 +1,24 @@
+# quiz_app.py
+
+import random
+import json
+
+def load_quiz():
+    with open("quiz_data.json", "r") as file:
+        return json.load(file)
+
+def start_quiz():
+    quiz = load_quiz()
+    questions = random.sample(quiz, len(quiz))
+    score = 0
+    for q in questions:
+        print(f"Q: {q['question']}")
+        for idx, opt in enumerate(q['options'], 1):
+            print(f"{idx}. {opt}")
+        answer = int(input("Your answer: "))
+        if q['options'][answer - 1] == q['answer']:
+            score += 1
+    print(f"Your score: {score}/{len(quiz)}")
+
+# Sample usage
+start_quiz()
